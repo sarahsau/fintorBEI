@@ -3,31 +3,31 @@
 
     <%= form_for @converter, method: :post do |f|%>
 
-      <div class="p-4">
+      <div class="p-2">
         <h2 class=" pt-4 uppercase text-red-900 font-bold text-sm ">Enter company's ticker</h2>
         <div class="pb-4">
           <small class="text-gray-500">A 4-letter ticker, e.g. ADES, AGII</small>
         </div>
-        <%= f.select :ticker, [["BNI - Bank Negara Indonesia", "bni"], ["BCA - Bank Central Asia", "bca"]], {}, class: 'p-2 text-red-900 bg-gray-50 rounded border border-red-900 hover:bg-blue-50 pr-28 focus:outline-none' %>
+        <%= f.text_field :ticker, maxlength: '4', class: 'p-2 text-red-900 bg-gray-50 rounded border border-red-900 hover:bg-purple-100 w-24 text-center focus:outline-none' %>
 
       </div>
       <br>
 
-      <div class="p-4">
+      <div class="p-2">
         <h2 class="uppercase text-red-900 font-bold text-sm">Upload company's Annual Financial Statements</h2>
 
         <div class="pb-4">
-          <small class="text-gray-500"><strong>Open downloaded file first, then save </strong> before uploading. More info at <%= link_to "FAQ", faq_path %>. <br> Leave blank if data is not available or not to be included. </small>
+          <small class="text-gray-500"><strong>Before uploading, open the downloaded file in Excel, then save. </strong> See <%= link_to "instructions", faq_path %>. <br> Leave blank if data is not available or not to be included. </small>
         </div>
 
-        <h3 class=" text-red-900 text-sm">2020</h3>
-        <%= f.file_field :file_2020, accept: '.xlsx', class: 'text-red-900 rounded border border-red-900 p-2 mb-4 cursor-pointer hover:bg-blue-50 focus:outline-none' %>
+        <h3 class=" text-red-900 text-sm"><strong>2020</strong></h3>
+        <%= f.file_field :file_2020, accept: '.xlsx', class: 'text-red-900 rounded border border-red-900 p-2 mb-4 cursor-pointer hover:bg-purple-100 focus:outline-none' %>
 
-        <h3 class=" text-red-900 text-sm">2019</h3>
-        <%= f.file_field :file_2019, accept: '.xlsx', class: 'text-red-900 rounded border border-red-900 p-2 mb-4 cursor-pointer hover:bg-blue-50 focus:outline-none' %>
+        <h3 class=" text-red-900 text-sm"><strong>2019</strong></h3>
+        <%= f.file_field :file_2019, accept: '.xlsx', class: 'text-red-900 rounded border border-red-900 p-2 mb-4 cursor-pointer hover:bg-purple-100 focus:outline-none' %>
 
-        <h3 class=" text-red-900 text-sm">2018</h3>
-        <%= f.file_field :file_2018, accept: '.xlsx', class: 'text-red-900 rounded border border-red-900 p-2 cursor-pointer hover:bg-blue-50 focus:outline-none' %>
+        <h3 class=" text-red-900 text-sm"><strong>2018</strong></h3>
+        <%= f.file_field :file_2018, accept: '.xlsx', class: 'text-red-900 rounded border border-red-900 p-2 cursor-pointer hover:bg-purple-100 focus:outline-none' %>
       </div>
 
       <div class="p-4 pb-4">

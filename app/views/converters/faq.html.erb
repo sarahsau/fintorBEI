@@ -5,48 +5,47 @@
     <h3 class="text-lg text-gray-800 py-3 uppercase">FAQ</h3>
     <ol>
       <li>
-        <strong class="text-gray-600">How to download the bank statement?</strong><br>
-        See <a href="#get-statement">Getting Bank Statements</a>. The assumption is that you already have access to your bank's internet banking system (i.e. klikBCA, BNI Internet Banking, etc.). If you don't, request an internet banking credential by visiting your bank's nearest branch office.
+        <strong class="text-gray-600">How to download and process the company's financial statement before using it in Fintor?</strong><br>
+        <ol>
+          <li>1. Go to Indonesian Stock Exhange (IDX) website at <a href="https://www.idx.co.id/perusahaan-tercatat/laporan-keuangan-dan-tahunan/"><em>Laporan Keuangan dan Tahunan </em></a></li>
+          <li>2. Select the following: <em class="text-red-900">Jenis Laporan: Laporan Keuangan, Jenis Efek: Saham</em></li>
+          <li>3. Enter company's 4-letter ticker, e.g. ADES. You can enter multiple companies at once. </li>
+          <li>4. Select the year. We only support 2018-2020. </li>
+          <li>5. Select <em class="text-red-900">Tahunan </em>as the period, then click <em class="text-red-900">Cari</em></li>
+          <li>6. Search result will be shown. Click the file with .xlsx extension to download it. Usually the file name follows the format <em class="text-red-900">FinancialStatement-[year]-Tahunan-[company's ticker].xlsx</em>. If no result is shown, it means that the data is not available for the particular year.</li>
+          <li>7. Repeat the search for other years that you want to include. For example, you want to extract ADES financial info for 2018, 2019, and 2020. It means that youd need to first download the 2018 statement, then change the <em class="text-red-900">Tahun</em>search criteria to 2019 statement (and download it), and change again the search criteria to 2020. All other criteria should remain the same.</li>
+          <li>8. <strong class="text-red-900">IMPORTANT</strong> Once downloaded, you have to open the file in Excel, then save it. Only after that the file can be used in Fintor. Directly putting downloaded files without opening and saving it will result in error.</li>
+        </ol>
+
+
       </li><br>
       <li>
-        <strong class="text-gray-600">Which banks are currently supported by indoynab? </strong><br>
-        So far: Bank Negara Indonesia (BNI), Bank Central Asia (BCA).
+        <strong class="text-gray-600">Which line items are currently can be extracted by Fintor? </strong><br>
+        <ul>
+          <li>total current assets</li>
+          <li>total non-current assets</li>
+          <li>total assets</li>
+          <li>Proceeds from disposal of property, plant and equipment</li>
+          <li>Current maturities of bank loans</li>
+          <li>Total current liabilities</li>
+          <li>Total liabilities</li>
+          <li>Sales and Revenue</li>
+          <li>Selling Expenses</li>
+          <li>General and administrative expenses</li>
+          <li>Total net cash flows received from (used in) operating activities</li>
+        </ul>
       </li><br>
       <li>
-        <strong class="text-gray-600">[insert Indonesian bank name] is not supported!</strong><br>
-        I'll be glad to help build the converter for you! All I need is a sample of the bank's statement - you can remove personal information (name, account no) from it. Please open an issue in <a href="https://github.com/sarahsau/indoynab">Github</a> and share a sample of the bank statement that need to be converted.
+        <strong class="text-gray-600">Can you add [insert line item] to Fintor?</strong><br>
+        I'll be glad to add the line item! Please open an issue in <a href="https://github.com/sarahsau/fintorBEI">Github</a>.
       </li><br>
       <li>
-        <strong class="text-gray-600">Help! YNAB doesn't accept the converted CSV/I found an error/I'm stuck </strong><br>
-         Whoops! Please open an issue in <a href="https://github.com/sarahsau/fintorBEI">Github</a> and share all the files and error details.
+        <strong class="text-gray-600">Help! I found an error/I'm stuck </strong><br>
+         Make sure that you have opened the downloaded file then saved it, before uploading to Fintor. If the error persists, please open an issue in <a href="https://github.com/sarahsau/fintorBEI">Github</a> and share all the files and error details.
       </li><br>
-      <li>
-        <strong class="text-gray-600">What is YNAB, by the way?</strong><br>
-        You Need a Budget (YNAB) is a popular personal budgeting app. visit <a href="https://www.youneedabudget.com/">their site</a> for more information.
-      </li>
     </ol>
     <br>
 
-    <div class="pt-6">
-      <h3 class="text-lg text-gray-800 py-3 uppercase" id="get-statement">Getting bank statements</h3>
-
-      <strong class="text-gray-600">Bank Negara Indonesia (BNI)</strong>
-        <ul>
-          <li>- Login to BNI Internet Banking</li>
-          <li>- Go to Rekening > Mutasi Tabungan dan Giro</li>
-          <li>- Select your account and put your query criteria, then select "Histori Transaksi"</li>
-          <li>- Download to a PDF file</li>
-        </ul>
-      <br>
-        <strong class="text-gray-600">Bank Central Asia (BCA)</strong><br>
-        <ul>
-          <li>- Login to klikBCA</li>
-          <li>- Go to Account Information > Account Statement</li>
-          <li>- Select the period of transactions that you want to import to YNAB</li>
-          <li>- Click "Statement Download", that will download the statement file in csv format.</li>
-        </ul>
-    </div>
-    <br>
     <span class="underline"><%= link_to ' Back to home', root_path %></span>
   </div>
 </div>
