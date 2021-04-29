@@ -1,5 +1,6 @@
 require 'csv'
 require 'simple_xlsx_reader'
+require 'fileutils'
 
 class FintorParser
   attr_accessor :input_2020, :input_2019, :input_2018, :output, :errors
@@ -12,7 +13,7 @@ class FintorParser
   end
 
   def excel_check?
-    self == 'application/xlsx'
+    self == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   end
 
   def output_file
