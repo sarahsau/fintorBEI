@@ -15,8 +15,8 @@ class ConvertersController < ApplicationController
       flash.now[:alert] = "Error: no ticker entered"
     end
 
-      result      = @converter.run_conversion
-      file_path   = Rails.root.join('public', 'output', result)
+    result      = @converter.run_conversion
+    file_path   = Rails.root.join('public', 'output', result)
 
       flash.now[:success] = "Ekstrasi data berhasil"
       stream_then_delete_statement(file_path)

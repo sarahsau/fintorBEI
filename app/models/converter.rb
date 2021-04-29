@@ -4,11 +4,11 @@ class Converter < ApplicationRecord
 
   def run_conversion
     ticker     = self[:ticker]
-    file_2020  = self[:file_2020]
-    file_2019  = self[:file_2019]
     file_2018  = self[:file_2018]
+    file_2019  = self[:file_2019]
+    file_2020  = self[:file_2020]
     output     = "public/output/#{ticker}_fintor_#{SecureRandom.alphanumeric}.csv"
-    statement  = FintorParser.new(file_2020, file_2019, file_2018, output)
+    statement  = FintorParser.new(file_2018, file_2019, file_2020, output)
 
     statement.output_file
     statement.processing

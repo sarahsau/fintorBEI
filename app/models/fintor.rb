@@ -3,12 +3,12 @@ require 'simple_xlsx_reader'
 require 'fileutils'
 
 class FintorParser
-  attr_accessor :input_2020, :input_2019, :input_2018, :output, :errors
+  attr_accessor :input_2018, :input_2019, :input_2020, :output, :errors
 
-  def initialize(input_2020, input_2019, input_2018, output)
-    @input_2020 = input_2020 || "./dummy.xlsx"
-    @input_2019 = input_2019 || "./dummy.xlsx"
-    @input_2018 = input_2018 || "./dummy.xlsx"
+  def initialize(input_2018, input_2019, input_2020, output)
+    @input_2018 = input_2018
+    @input_2019 = input_2019
+    @input_2020 = input_2020
     @output     = output
   end
 
@@ -23,24 +23,40 @@ class FintorParser
   end
 
   def processing
-    # parsing sheets
-    doc_2020            = SimpleXlsxReader.open(self.input_2020)
-    pg2_position_2020   = doc_2020.sheets[2].rows.each(&:compact!)
-    pg3_profit_2020     = doc_2020.sheets[3].rows.each(&:compact!)
-    pg5_cashflow_2020   = doc_2020.sheets[6].rows.each(&:compact!)
+    # put dummy on unavailable excels
+    if @input_2018.nil?
+      doc_2018 = SimpleXlsxReader.open("./app/models/dummy.xlsx")
+    else
+      doc_2018 = SimpleXlsxReader.open(self.input_2018)
+    end
 
-    doc_2019            = SimpleXlsxReader.open(self.input_2019)
-    pg1_general_2019    = doc_2019.sheets[1].rows.each(&:compact!)
-    pg2_position_2019   = doc_2019.sheets[2].rows.each(&:compact!)
-    pg3_profit_2019     = doc_2019.sheets[3].rows.each(&:compact!)
-    pg5_cashflow_2019   = doc_2019.sheets[6].rows.each(&:compact!)
+    if @input_2019.nil?
+      doc_2019 = SimpleXlsxReader.open("./app/models/dummy.xlsx")
+    else
+      doc_2019 = SimpleXlsxReader.open(self.input_2019)
+    end
 
-    doc_2018            = SimpleXlsxReader.open(self.input_2018)
+    if @input_2020.nil?
+      doc_2020 = SimpleXlsxReader.open("./app/models/dummy.xlsx")
+    else
+      doc_2020 = SimpleXlsxReader.open(self.input_2020)
+    end
+
+    pg1_general         = doc_2019.sheets[1].rows.each(&:compact!) || doc_2020.sheets[1].rows.each(&:compact!) || doc_2018.sheets[1].rows.each(&:compact!)
+
     pg2_position_2018   = doc_2018.sheets[2].rows.each(&:compact!)
     pg3_profit_2018     = doc_2018.sheets[3].rows.each(&:compact!)
     pg5_cashflow_2018   = doc_2018.sheets[6].rows.each(&:compact!)
 
-    # line item properties
+    pg2_position_2019   = doc_2019.sheets[2].rows.each(&:compact!)
+    pg3_profit_2019     = doc_2019.sheets[3].rows.each(&:compact!)
+    pg5_cashflow_2019   = doc_2019.sheets[6].rows.each(&:compact!)
+
+    pg2_position_2020   = doc_2020.sheets[2].rows.each(&:compact!)
+    pg3_profit_2020     = doc_2020.sheets[3].rows.each(&:compact!)
+    pg5_cashflow_2020   = doc_2020.sheets[6].rows.each(&:compact!)
+
+  # line item properties
     items = { :current_assets     => ["total current assets", "pg2_position", 55],
               :non_current_assets => ["total non-current assets", "pg2_position", 121],
               :total_assets       => ["total assets", "pg2_position", 122],
@@ -54,7 +70,7 @@ class FintorParser
               :operating_cash     => ["Total net cash flows received from (used in) operating activities", "pg5_cashflow", 101] }
 
     # rounding
-    rounding            = pg1_general_2019[24][1].split(" ").to_a.pop
+    rounding            = pg1_general[24][1].split(" ").to_a.pop
     rounding_modifier   = { "Amount" => 1, "Million" => 1000000, "Thousand" => 1000 }
     rounding_multiplier = rounding_modifier.fetch(rounding).to_i
 
