@@ -67,7 +67,7 @@ class FintorParser
               :sales_revenue      => ["Sales and Revenue", "pg3_profit", 4],
               :selling_expenses   => ["Selling Expenses", "pg3_profit", 7],
               :general_expenses   => ["General and administrative expenses", "pg3_profit", 8],
-              :operating_cash     => ["Total net cash flows received from (used in) operating activities", "pg5_cashflow", 101] }
+              :operating_cash     => ["Total net cash flows received from (used in) operating activities", "pg5_cashflow", 36] }
 
     # rounding
     rounding            = pg1_general[24][1].split(" ").to_a.pop
